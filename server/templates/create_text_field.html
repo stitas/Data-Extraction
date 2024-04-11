@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/jcrop/dist/jcrop.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/0.9.15/js/jquery.Jcrop.js" integrity="sha512-8SpT7ueuEcyaOfE5XTafnVw9V3Bqz6uFzR3xYQIxWOed2ic4t6bfpL/k2JciMdML3n0k4QRZEe3EBFw+/eVLQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <style>
+            #target {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+
+        <label for="page">Select doucment page: </label>
+        <form method="POST" style="display: flex;">
+            <select name="page" class="form-select">
+                {% for page in range(page_count) %}
+                    <option value="{{page}}">{{page+1}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" class="btn btn-primary" style="width: auto;" name="change_page">
+        </form>
+       
+        <div id="image-container">
+            <img src="data:image/png;base64,{{ image }}" style="width: 100%; height: auto;" id="target" >
+        </div>
+
+        <label for="key">Enter key name: </label>
+        <form method="POST" style="display: flex;">
+            <input type="text" name="key" class="form-control">
+            <button onclick="getSelectedImageData()" class="btn btn-primary mx-2" style="width: auto;">Submit</button>
+            <input type="hidden" name="image" id="image" >
+            <input type="hidden" name="x1" id="x1">
+            <input type="hidden" name="y1" id="y1">
+            <input type="hidden" name="x2" id="x2">
+            <input type="hidden" name="y2" id="y2">
+            <input type="hidden" name="current_page" value="{{page}}">
+        </form>
+        
+        <p style="color:red;">{{errors}}</p>
+
+
+        <script>
+            var jcropApi
+            var scroll = 0
+
+            $(document).ready(function(){
+                $('#target').Jcrop({
+                    onSelect: showCoords,
+                    onChange: showCoords
+                })
+            })
+
+            function showCoords(c) {
+                $('#image-container').on('scroll', function(){
+                    scroll = $('#image-container').scrollTop()
+                })
+
+                c.y2 += scroll
+                console.log(c.y2)
+                jcropApi = this
+            }
+
+            function getSelectedImageData() {
+                if (jcropApi) {
+                    var canvas = document.createElement('canvas')
+                    var context = canvas.getContext('2d')
+
+                    // Get the selected coordinates
+                    var selection = jcropApi.tellSelect()
+
+                    // Set the canvas size to the selection size
+                    canvas.width = selection.w
+                    canvas.height = selection.h
+
+                    // Draw the cropped region to the canvas
+                    context.drawImage(jcropApi.ui.holder.find('img')[0], selection.x, selection.y, selection.w, selection.h, 0, 0, selection.w, selection.h)
+
+
+                    // Get the data URL from the canvas
+                    var dataUrl = canvas.toDataURL('image/png')
+                    
+                    input = document.getElementById('image')
+                    image = document.getElementById('target')
+                    x1 = document.getElementById('x1')
+                    y1 = document.getElementById('y1')
+                    x2 = document.getElementById('x2')
+                    y2 = document.getElementById('y2')
+
+                    input.value = dataUrl
+                    x1.value = selection.x 
+                    y1.value = selection.y 
+                    x2.value = (selection.w + selection.x) 
+                    y2.value = (selection.h + selection.y) 
+                     
+                } else {
+                    console.log('Jcrop instance not initialized.')
+                }
+            }
+
+        </script>
+    </div>
+</body>
+</html>
+{% endblock %}

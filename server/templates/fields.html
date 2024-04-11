@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Text Fields</h1>
+    <form method="POST" class="m-1 col-lg-3 col-md-4 col-sm-6 col-xs-8">
+        <input type="submit" name="redirect_create_text_field" class="btn btn-primary" value="Add Text Field">
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for text_field in text_fields %}
+                <form method="POST">
+                <tr>
+                    <th scope="row">{{text_field.id_}}</th>
+                    <td>{{text_field.key}}</td>
+                    <td><a href="{{ url_for('edit_text_field', id_=extractor.id_, text_field_id=text_field.id_ ) }}">Edit</a></td>
+                    <td class="text-center">
+                        <button type="submit" class="btn btn-danger px-4 text-center inbtn" style="width: 10%;"><i class="bi bi-trash">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                            </svg>
+                        </button>
+                    </td>
+                    <td><input type="hidden" name="delete_text" value="{{text_field.id_}}"></td>
+                </tr>
+                </form>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h1>Form Fields</h1>
+    <form method="POST" class="m-1 col-lg-3 col-md-4 col-sm-6 col-xs-8">
+        <input type="submit" name="redirect_create_form_field" class="btn btn-primary" value="Add Form Field">
+    </form>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form_field in form_fields %}
+                    <form method="POST">
+                        <tr>
+                            <th scope="row">{{form_field.id_}}</th>
+                            <td>{{form_field.name}}</td>
+                            <td><a href="{{ url_for('edit_kvp', id_=extractor.id_ , form_field_id = form_field.id_) }}">Edit</a></td>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-danger px-4 text-center inbtn" style="width: 10%;"><i class="bi bi-trash">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td><input type="hidden" name="delete_form" value="{{form_field.id_}}"></td>
+                        </tr>
+                    </form>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h1>Table Fields</h1>
+        <form method="POST" class="m-1 col-lg-3 col-md-4 col-sm-6 col-xs-8">
+            <input type="submit" name="redirect_create_table_field" class="btn btn-primary" value="Add Table Field">
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for table_field in table_fields %}
+                    <form method="POST">
+                        <tr>
+                            <th scope="row">{{table_field.id_}}</th>
+                            <td>{{table_field.name}}</td>
+                            <td><a href="{{ url_for('edit_table', id_=extractor.id_ , table_field_id = table_field.id_) }}">Edit</a></td>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-danger px-4 text-center inbtn" style="width: 10%;"><i class="bi bi-trash">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td><input type="hidden" name="delete_table" value="{{table_field.id_}}"></td>
+                        </tr>
+                    </form>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+{% endblock %}

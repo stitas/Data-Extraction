@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" enctype=multipart/form-data>
+            <label for="extractors">Choose extractor:</label>
+            <select name="extractors" class="form-select">
+                {% for extractor in extractors %}
+                    <option value="{{extractor.id_}}">{{extractor.name}}</option>
+                {% endfor %}
+            </select>
+            <label for="files">Upload files:</label>
+            <input type="file" name="files" class="form-control" multiple>
+            <input type="submit" name="extractor" value="Extract" class="btn btn-primary my-3">
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

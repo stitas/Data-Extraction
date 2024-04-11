@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Extracted values</h1>
+        <form method="POST">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Key</th>
+                            <th scope="col">Confidence</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for kvp in data %}
+                            <tr>
+                                <td><input type="checkbox" name="{{kvp.id_}}"></td>
+                                <td>{{kvp.key}}</td>
+                                <td>{{kvp.key_confidence | round(2)}}%</td>
+                                <td>{{kvp.value}}</td>
+                                <td>{{kvp.value_confidence | round(2)}}%</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+
+            <div class="btn-container">
+                <input type="submit" name="delete" class="btn btn-danger mx-3" value="Delete Selected">
+                <input type="submit" name="save_kvp" class="btn btn-primary" value="Save">
+            </div>
+            
+        </form>
+
+        <form method="POST">
+            
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

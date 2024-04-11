@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {% for df in dataframes %}
+            <h1>Table {{loop.index}}:</h1>
+            <div class="table-responsive">
+                {{df|safe}}
+            </div>
+            <form method="POST" class="mb-3">
+                <input type="submit" name="{{tables[loop.index - 1].id_}}" class="btn btn-danger" value="Delete">
+                <input type="text"  hidden name="delete">
+            </form>
+        {% endfor %}
+
+        <form method="POST">
+            <input type="submit" name="save_table" class="btn btn-primary" value="Save">
+        </form>
+    </div>
+
+    <style>
+    </style>
+</body>
+</html>
+{% endblock %}

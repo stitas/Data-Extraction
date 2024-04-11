@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <label for="field_name">Enter field name</label>
+        <form method="POST" style="display: flex;">
+            <input type="text" name="field_name" class="form-control">
+            <input type="submit" name="field_name_submit" class="btn btn-primary">
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

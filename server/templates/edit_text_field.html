@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h4>Extracted text:</h4>
+        {% for line in text %}
+            <p>{{line.value}}</p>
+        {% endfor %}
+        <form method="POST">
+            <input type="submit" class="btn btn-primary" name="save" value="Save">                 
+            <input type="submit" class="btn btn-danger" name="delete" value="Delete">
+        </form>
+    </div>
+    
+</body>
+</html>
+{% endblock %}

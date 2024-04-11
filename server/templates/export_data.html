@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" name="download_file">
+            {% for filename in filenames %}
+                <h1>File {{loop.index}}:</h1>
+                <h3>{{filename}}</h3>
+                <input type="submit" name="{{filename}}" class="btn btn-primary" value="Download">
+            {% endfor %}
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}
